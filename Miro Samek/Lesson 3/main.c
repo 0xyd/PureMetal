@@ -5,6 +5,13 @@
  */
 int global_counter = 0;
 
+//static inline __attribute__((always_inline)) void maccess() {
+//                volatile unsigned value;
+//                asm volatile ("LDR %0, [r15]\n\t"
+//                        : "=r" (value)
+//                        : "r" ());
+//};
+
 int main(void)
 {
     int local_counter = 0;
@@ -15,7 +22,8 @@ int main(void)
 
     int i = 0;
     int *global_counter_ptr = &global_counter;
-
+    asm volatile("nop");
+//    maccess();
     for(;i<10; i++) {
         ++(*global_counter_ptr);
     }
