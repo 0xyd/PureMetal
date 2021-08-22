@@ -6,7 +6,7 @@ According to the block diagram of the Tiva's evaluation board, the LED red, gree
 
 <div style="text-align:center">
 	<img align="center" src="https://raw.githubusercontent.com/0xyd/PureMetal/main/Miro%20Samek/Lesson%204/pics/How%20the%20LEDs%20connect%20to%20TIVA%20Board.png" alt="How the LEDs connect to TIVA Board">
-	<figcaption>Fig 1. How the LEDs connect to TIVA Board</figcaption>
+	<span style="display: block;">Fig 1. How the LEDs connect to TIVA Board</span>
 </div>
 
 If we look closer to the circuit related to the RGB LED circuit figure, the output pins are *LED_R*, *LED_G* and *LED_B*. These output pins are connected to the evaluation boardas shown in the second figure below. The *LED_R*, *LED_G* and *LED_B* connects to *PF1*, *PF2* and *PF3* respectively. According to the Tiva C's manual, the output pins are connected to the board through GPIO pins PF1, PF2, and PF3.
