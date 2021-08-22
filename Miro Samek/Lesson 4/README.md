@@ -5,7 +5,7 @@ In the lesson 4, we are going to learn how to read the documents of Tiva board a
 According to the block diagram of the Tiva's evaluation board, the LED red, green and blue are controlled by as the below figure. The figure shows that the RGB LED is connected through GPIO interface.
 
 <div style="text-align:center">
-	![How the LEDs connect to TIVA Board](https://raw.githubusercontent.com/0xyd/PureMetal/main/Miro%20Samek/Lesson%204/pics/How%20the%20LEDs%20connect%20to%20TIVA%20Board.png)
+	<img src="https://raw.githubusercontent.com/0xyd/PureMetal/main/Miro%20Samek/Lesson%204/pics/How%20the%20LEDs%20connect%20to%20TIVA%20Board.png" alt="How the LEDs connect to TIVA Board">
 	<figcaption>Fig 1. How the LEDs connect to TIVA Board</figcaption>
 </div>
 
