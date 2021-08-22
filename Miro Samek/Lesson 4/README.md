@@ -2,9 +2,15 @@
 
 In the lesson 4, we are going to learn how to read the documents of Tiva board and TM4C123GH6PM Microcontroller. 
 
-According to the block diagram of the Tiva's evaluation board, the LED red, green and blue are controlled by as the below figure shows:
+According to the block diagram of the Tiva's evaluation board, the LED red, green and blue are controlled by as the below figure. The figure shows that the RGB LED is connected through GPIO interface.
 
 ![How the LEDs connect to TIVA Board](https://raw.githubusercontent.com/0xyd/PureMetal/main/Miro%20Samek/Lesson%204/pics/How%20the%20LEDs%20connect%20to%20TIVA%20Board.png)
+
+If we look closer to the circuit related to the RGB LED circuit, the output pins are *LED_R*, *LED_G* and *LED_B*.
+![LED outputs circuit](https://raw.githubusercontent.com/0xyd/PureMetal/main/Miro%20Samek/Lesson%204/pics/LED%20RGB%20output%20circuits.png)
+
+
+![LED outputs to the board](https://raw.githubusercontent.com/0xyd/PureMetal/main/Miro%20Samek/Lesson%204/pics/LED%20Outputs%20to%20the%20Board%20Input.png)
 
 ## Reference
 1. [Embedded Systems Programming Lesson 4 Blinking the LED by Miro Samek](https://www.youtube.com/watch?v=D0VuYe77Wu0&list=PLfcIZXsDLA1-QEyrD4R9YcWWKpbCcrGVP&index=5)
