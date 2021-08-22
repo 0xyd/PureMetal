@@ -4,7 +4,7 @@ In the lesson 4, we are going to learn how to read the documents of Tiva board a
 
 According to the block diagram of the Tiva's evaluation board, the LED red, green and blue are controlled by as the below figure shows:
 
-![How the LEDs connect to TIVA Board](./pics/How the LEDs connect to TIVA Board.png)
+![How the LEDs connect to TIVA Board](https://raw.githubusercontent.com/0xyd/PureMetal/main/Miro%20Samek/Lesson%204/pics/How%20the%20LEDs%20connect%20to%20TIVA%20Board.png)
 
 ## Reference
 1. [Embedded Systems Programming Lesson 4 Blinking the LED by Miro Samek](https://www.youtube.com/watch?v=D0VuYe77Wu0&list=PLfcIZXsDLA1-QEyrD4R9YcWWKpbCcrGVP&index=5)
