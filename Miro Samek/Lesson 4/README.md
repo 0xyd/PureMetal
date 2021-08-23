@@ -2,7 +2,7 @@
 
 In the lesson 4, we are going to learn how to read the documents of Tiva board and TM4C123GH6PM Microcontroller. Then, we use the learned information from the documents to control the LED lights.
 
-## How to Read Manuals
+## Read Manuals
 
 According to the block diagram of the Tiva's evaluation board, the LED red, green and blue are controlled by as the below figure. The figure shows that the RGB LED is connected through GPIO interface.
 
@@ -30,12 +30,21 @@ Memory map describes how memory is laid out in a microcontroller. The memory map
 </figure>
 <figure>
 	<img style="display: block;" src="https://raw.githubusercontent.com/0xyd/PureMetal/main/Miro%20Samek/Lesson%204/pics/GPIO%20Port%20F%20in%20Memory%20Map.png" alt="GPIO Port F im Memory Map">
-	<figcaption style="display: block;">Fig 5. GPIO Port F im Memory Map</figcaption>
+	<figcaption style="display: block;">Fig 5. GPIO Port F in Memory Map</figcaption>
 </figure>
 
+Before we start using GPIO pins, we have to turn on the Clock Gating of GPIO modules since the microcontroller turns them off by default to save the energy. As Fig 6 shows, we have to turn the register on by setting bit 5 to 1. The address of GPIO's Run Mode Clock Gating Control is 0x400FE608.
+
+<figure>
+	<img style="display: block;" src="https://raw.githubusercontent.com/0xyd/PureMetal/main/Miro%20Samek/Lesson%204/pics/Port%20F%20of%20GPIO%20Run%20Mode%20Clock%20Gating%20Control.png" alt="Port F of GPIO Run Mode Clock Gating Control">
+	<figcaption style="display: block;">Fig 6. Port F of GPIO Run Mode Clock Gating Control</figcaption>
+</figure>
+
+To set up the GPIO pins, there are two types of register we need to set up: *GPIODATA* and *GPIO Direction*. 
 
 ## Reference
 1. [Embedded Systems Programming Lesson 4 Blinking the LED by Miro Samek](https://www.youtube.com/watch?v=D0VuYe77Wu0&list=PLfcIZXsDLA1-QEyrD4R9YcWWKpbCcrGVP&index=5)
 2. [Data sheet of TM4C123GH6PM Microcontroller](https://www.ti.com/lit/ds/symlink/tm4c123gh6pm.pdf?ts=1629421963999&ref_url=https%253A%252F%252Fwww.google.com%252F)
 3. [Manual of Tiva C Series TM4C123G LaunchPad Evaluation Board](https://www.ti.com/lit/ug/spmu296/spmu296.pdf?ts=1629375237888&ref_url=https%253A%252F%252Fwww.google.com%252F)
 4. [Memory Mapped IO, Peripherals, and Registers](https://jsandler18.github.io/extra/peripheral.html)
+5. [Clock gating by Wiki](https://en.wikipedia.org/wiki/Clock_gating)
