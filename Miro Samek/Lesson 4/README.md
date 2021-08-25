@@ -11,7 +11,7 @@ According to the block diagram of the Tiva's evaluation board, the LED red, gree
 	<figcaption style="display: block;">Fig 1. How the LEDs connect to TIVA Board</figcaption>
 </figure>
 
-If we look closer to the circuit related to the RGB LED circuit figure, the input pins are *LED_R*, *LED_G* and *LED_B*. These inputs pins are connected to the evaluation boardas shown in the second figure below. The *LED_R*, *LED_G* and *LED_B* connects to *PF1*, *PF2* and *PF3* respectively. According to the Tiva C's manual, these pins are connected to the chip through GPIO pins PF1, PF2, and PF3 (check Fig 3.). 
+If we look closer to the circuit related to the RGB LED circuit figure, the input pins are *LED_R*, *LED_G* and *LED_B*. These inputs pins are connected to the evaluation boardas shown in the second figure below. The *LED_R*, *LED_G* and *LED_B* connect to *PF1*, *PF2* and *PF3* respectively. According to the Tiva C's manual, these pins are connected to the chip through GPIO pins PF1, PF2, and PF3 (check Fig 3.). 
 
 <figure>
 	<img style="display: block;" src="https://raw.githubusercontent.com/0xyd/PureMetal/main/Miro%20Samek/Lesson%204/pics/LED%20circuit.png" alt="Fig 2. LED circuit">
@@ -40,14 +40,37 @@ Before we start using GPIO pins, we have to turn on the Clock Gating of GPIO mod
 	<figcaption style="display: block;">Fig 6. Port F of GPIO Run Mode Clock Gating Control</figcaption>
 </figure>
 
-Now it's time to configure the GPIO pins. There are two types of the register we need to set up: *GPIODATA* and *GPIO Direction*. Fig 7 writes: *values written in GPIODATA register are transferred onto the GPIO port pins if the respective pins have been configured as outputs through GPIO Direction (GPIODIR) register*. In other words, pins that are set as output in GPIO Direction register must have their data register as 1 too.
+Now it's time to configure the GPIO pins. There are three types of the register we need to set up: *GPIODATA*, *GPIO Direction*, and *GPIO Digital Enable*. GPIODATA register provides a mask as an interface that can read/write a data register without affecting other pins' states. (See details information in Figure 7.) GPIO Direction register determines the pins' input and output states. GPIO Digital Enable register activates the digital function of the pins.
+
+Keep in mind that the GPIODATA register uses bits 2-9 of the address as a mask to configure the values in the register; the last two bits are set 0 due to 4 bytes alignment. The port F has pins 0-7 so its representation in binary is 0x11111111. Since the last 2 bits of the address are 0, the binary representation is 0x1111111100 which is 0x3FC. Hence, the address of data register of Port F becomes 0x40025000 + 0x3FC = 0x400253FC. To determine which LED to blink, we have to set up the value in the data register. For instance, if we want the RED LED to turn on, we write value 0x00000002 to the address. However, this setup cannot wake up the RED LED because we have to define the pins state and enable the digital functions beforehand.
+
 
 <figure>
-	<img style="display: block;" src="https://raw.githubusercontent.com/0xyd/PureMetal/main/Miro%20Samek/Lesson%204/pics/GPIO%20Data%20Register.png" alt="Fig 7. Description about GPIODATA register">
-	<figcaption style="display: block;">Fig 7. Description about GPIODATA register</figcaption>
+	<img style="display: block;" src="https://raw.githubusercontent.com/0xyd/PureMetal/main/Miro%20Samek/Lesson%204/pics/Data%20Register%20Operation.png" alt="Fig 7. Description about GOIPDATA register operation">
+	<figcaption style="display: block;">Fig 7. Description about GOIPDATA register operation</figcaption>
 </figure>
 
-GPIODATA Register can modify the individual bits of GPIO Ports by the address mask
+In Fig 8, it says: *values written in GPIODATA register are transferred onto the GPIO port pins if the respective pins have been configured as outputs through GPIO Direction (GPIODIR) register*. In other words, whenever a pin state of GPIODATA register is 1, then its corresponding bits in GPIO Direction register must be 1 too.
+
+<figure>
+	<img style="display: block;" src="https://raw.githubusercontent.com/0xyd/PureMetal/main/Miro%20Samek/Lesson%204/pics/GPIO%20Data%20Register.png" alt="Fig 8. Description about GPIODATA register">
+	<figcaption style="display: block;">Fig 8. Description about GPIODATA register</figcaption>
+</figure>
+
+To set up GPIO Direction register of the Port F, we have to find where it locates. According to the manual, GPIO Port F's Direction register locates at 0x40025400 (Base of Port F: 0x40025000 + offset 0x400). Since the *LED_R*, *LED_G* and *LED_B* connect to *PF1*, *PF2* and *PF3*, the bit 1, 2, and 3 are set to 1. As Fig 8 shows, the bits port 0-7 represent port 0 to 7 respectively so we should assign value 00001110 to the address 0x40025400. 
+
+<figure>
+	<img style="display: block;" src="https://raw.githubusercontent.com/0xyd/PureMetal/main/Miro%20Samek/Lesson%204/pics/8%20pins%20of%20GPIODATA%20Direction%20register.png" alt="Fig 9. 8 pins of GPIODATA Direction register">
+	<figcaption style="display: block;">Fig 9. 8 pins of GPIODATA Direction register</figcaption>
+</figure>
+
+Then, we have to enable the digital function of the ports as well. Similar to GPIO Direction register, we have to activate  *PF1*, *PF2* and *PF3* by setting up bit 1,2, and 3 to 1 in the address 0x4002551C (0x40025000 + offset 0x51C) .
+
+<figure>
+	<img style="display: block;" src="https://raw.githubusercontent.com/0xyd/PureMetal/main/Miro%20Samek/Lesson%204/pics/Description%20about%20GPIO%20Digital%20Enable%20register.png" alt="Fig 10. Description about the GPIO Digital Enable Register">
+	<figcaption style="display: block;">Fig 10. Description about the GPIO Digital Enable Register</figcaption>
+</figure>
+
 
 ## Reference
 1. [Embedded Systems Programming Lesson 4 Blinking the LED by Miro Samek](https://www.youtube.com/watch?v=D0VuYe77Wu0&list=PLfcIZXsDLA1-QEyrD4R9YcWWKpbCcrGVP&index=5)
