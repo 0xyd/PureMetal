@@ -68,7 +68,7 @@ For *c = a << 3;*, the microcontroller uses instruction *LSL Rd, Rs, #Offset5* t
 
 ## Example 
 
-Unlike the previous example, the LED lights take turns to blink. Here we want to make the task more complicated: First the red LED lights up, then the green, and the blue. Then, the red LED turns off, then the green, and the blue in the end.
+Unlike the previous example, the LED lights take turns to blink. Here, we want to make the task more complicated: First the red LED lights up, then the green, and the blue. Then, the red LED turns off, then the green, and the blue in the end.
 
 Based on the information we learned from the previos lessons, the 1-3 bits of the data register control the three LEDs: Red, Green, and Blue. Instead of assiging the value, we can take advantage of bit shifting to control the LEDs. That is:
 
@@ -80,11 +80,38 @@ Based on the information we learned from the previos lessons, the 1-3 bits of th
 
 We first declare *1U* in binary, *1U << 1* shifts the 0x1 left by 1 bit to 0x10 which turns the red LED on. To turn on the blue LED, we shift the bit 1 left by 2 bits. For the green LED, we shift it by 3 bits. These marco can not only use to manipulate data register, they can use to switch on the digital signal of LEDs and change the pin states to output as well.
 
+For the GPIO's direction and digital enable registers, they use the bit 1-3 to control red, green, and blue LEDs as well. Since we want to control the lights, we have to set them to 1. The code is as following: 
+
 ```c
-
-
+GPIODATA_DIR = LED_RED | LED_BLUE | LED_GREEN;
+GPIODATA_DEN = LED_RED | LED_BLUE | LED_GREEN;
 ```
 
+After defining the Marco, we can implement the LED action with our wanting order: 
+
+```c
+if (counter < 1e5) {
+    GPIODATA_DATA = LED_RED; // Red lights up
+}
+if (counter >= 1e5 && counter < 2e5) {
+    GPIODATA_DATA |= LED_BLUE; // Blue and Red light up
+}
+if (counter >= 2e5 && counter < 3e5) {
+    GPIODATA_DATA |= LED_GREEN; // All light up
+}
+if (counter >= 3e5 && counter < 4e5) {
+    GPIODATA_DATA &= ~LED_RED;  // Red turns off
+}
+if (counter >= 4e5 && counter < 5e5) {
+    GPIODATA_DATA &= ~LED_GREEN; // Green turns off
+}
+if (counter >= 5e5 && counter < 6e5) {
+    GPIODATA_DATA &= ~LED_BLUE;  // Blue turns off
+}
+if (counter >= 6e5) {
+    counter = 0;
+}
+```
 
 
 ## Reference
