@@ -20,34 +20,35 @@ int main(void)
     while (1) {
 
         ++counter;
-        if (counter < 1e3) {
+        if (counter < 1e5) {
             GPIODATA_PORT_F_BASE[LED_RED] = LED_RED;
 //            *(GPIODATA_PORT_F_BASE + 2) = LED_RED;
 //            *((unsigned volatile int *)(0x40025000U + (LED_RED << 2))) = LED_RED;
 //            GPIODATA_DATA = LED_RED; // Red lights up
         }
-        if (counter >= 1e3 && counter < 2e3) {
+        if (counter >= 1e5 && counter < 2e5) {
             GPIODATA_PORT_F_BASE[LED_BLUE] = LED_BLUE;
 //            *(GPIODATA_PORT_F_BASE + 4) = LED_BLUE;
 //            GPIODATA_DATA |= LED_BLUE; // Blue and Red light up
         }
-        if (counter >= 2e3 && counter < 3e3) {
-            *(GPIODATA_PORT_F_BASE + 8) = LED_GREEN;
+        if (counter >= 2e5 && counter < 3e5) {
+            GPIODATA_PORT_F_BASE[LED_GREEN] = LED_GREEN;
+//            *(GPIODATA_PORT_F_BASE + 8) = LED_GREEN;
 //            GPIODATA_DATA |= LED_GREEN; // All light up
         }
-        if (counter >= 3e3 && counter < 4e3) {
+        if (counter >= 3e5 && counter < 4e5) {
             GPIODATA_PORT_F_BASE[LED_RED] &= ~LED_RED;
 //            GPIODATA_DATA &= ~LED_RED;  // Red turns off
         }
-        if (counter >= 4e3 && counter < 5e3) {
+        if (counter >= 4e5 && counter < 5e5) {
             GPIODATA_PORT_F_BASE[LED_GREEN] &= ~LED_GREEN;
 //            GPIODATA_DATA &= ~LED_GREEN; // Green turns off
         }
-        if (counter >= 5e3 && counter < 6e3) {
+        if (counter >= 5e5 && counter < 6e5) {
             GPIODATA_PORT_F_BASE[LED_BLUE] &= ~LED_BLUE;
 //            GPIODATA_DATA &= ~LED_BLUE;  // Blue turns off
         }
-        if (counter >= 6e3) {
+        if (counter >= 6e5) {
             counter = 0;
         }
     }
